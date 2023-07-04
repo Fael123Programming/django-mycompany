@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Welcome Onboard</title>
+    </head>
+    <style>
+        .align-text {
+            text-align: center
+        }
+        .auto {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            padding: 30px;
+            width: 400px;
+            background-color: rgb(209, 209, 209);
+            /*list-style-type: none;*/
+            border: 1px solid black;
+            box-shadow: 1px 2px 1px black;
+        }
+        .no-underline {
+            text-decoration: none;
+        }
+    </style>
+    <body>
+        <h1 class="align-text">HOME</h1>
+        {% if user.is_authenticated %}
+            <p class="align-text">Authenticated as <strong>{{ user.username }}</strong></p>
+            <p class="align-text"><a href="{% url 'logout' %}?next={% url 'index' %}">LOGOUT</a></p>
+            <ul class="align-text auto" >
+                <li class="align-text"><a class="no-underline" href="{% url 'MainView' %}">Customers</a></li>
+            </ul>
+        {% else %}
+            <p class="align-text"><a href="{% url 'login' %}?next={{ request.path }}">LOGIN</a></p>
+        {% endif %}
+    </body>
+</html>

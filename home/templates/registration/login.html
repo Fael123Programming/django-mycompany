@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to My Company</title>
+    <style>
+        .error {
+            color: red; 
+            font-style: italic;
+        }
+        #main {
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+            margin: 5% auto auto auto;
+            padding: 30px;
+            align-items: center;
+            background-color: rgb(209, 209, 209);
+            border: 1px solid black;
+            box-shadow: 1px 2px 1px black;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="main">
+        <!-- {% if form.errors %}
+            <p class="error">Your username and password didn't match. Please, try again...</p>
+        {% endif %} -->
+        {% if next %}
+            {% if user.is_authenticated %}
+                <p class="error">Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+            {% else %}
+                <p><strong>MY COMPANY LOGIN</strong></p>
+            {% endif %}
+        {% endif %}
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="login">
+            <input type="hidden" name="next" value="{{ next }}">
+        </form>
+    </div>
+</body>
+</html>
